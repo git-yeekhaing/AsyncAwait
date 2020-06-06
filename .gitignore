@@ -1,1 +1,4 @@
+# .vs フォルダは要らない
 .vs/
+AsyncAndAwait/bin/
+AsyncAndAwait/obj/

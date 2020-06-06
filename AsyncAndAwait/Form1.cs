@@ -18,27 +18,15 @@ namespace AsyncAndAwait
             InitializeComponent();
         }
 
-        private void btnCalculate_Click(object sender, EventArgs e)
+        private async void btnCalculate_Click(object sender, EventArgs e)
         {
-            var calc = CalculateValueAsync();
-            calc.ContinueWith(t =>
-            {
-                lblResult.Text = t.Result.ToString();
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            int calc = await CalculateValueAsync();
+            lblResult.Text = calc.ToString();
         }
 
-        public Task<int> CalculateValueAsync()
+        public async Task<int> CalculateValueAsync()
         {
-            return Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(5000);
-                return 123;
-            });
-        }
-
-        public int CalculateValue()
-        {
-            Thread.Sleep(5000);
+            await Task.Delay(5000);
             return 123;
         }
     }
