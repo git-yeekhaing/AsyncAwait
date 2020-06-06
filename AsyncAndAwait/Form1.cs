@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Net;
 
 namespace AsyncAndAwait
 {
@@ -22,6 +23,13 @@ namespace AsyncAndAwait
         {
             int calc = await CalculateValueAsync();
             lblResult.Text = calc.ToString();
+
+            await Task.Delay(2000);
+            using (var wc = new WebClient())
+            {
+                string data = await wc.DownloadStringTaskAsync("http://google.com/robots.txt");
+                lblResult.Text = data.Split('\n')[0].Trim();
+            }
         }
 
         public async Task<int> CalculateValueAsync()
